@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', function() {
+    
 <style>
     .slide [aria-hidden="true"] {
         height: 0px;
@@ -291,3 +293,6 @@ dobInput.addEventListener('change', function() {
     dob.value = dobInput.value;
 });
 </script>
+});
+
+
