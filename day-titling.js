@@ -1,4 +1,4 @@
-<script>
+
 function formatDate(date) {
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -41,4 +41,4 @@ updateDate('day-18', 18);
 updateDate('day-19', 19);
 updateDate('day-20', 20);
 updateDate('day-21', 21);
-</script>
+
