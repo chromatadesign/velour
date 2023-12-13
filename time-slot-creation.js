@@ -258,6 +258,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+
 // Get the elements by their IDs
 var dobInput = document.getElementById('dob-input');
 var dob = document.getElementById('dob');
@@ -266,5 +268,30 @@ var dob = document.getElementById('dob');
 dobInput.addEventListener('change', function() {
     // Set the value of 'dob' to be the same as the value of 'dob-input'
     dob.value = dobInput.value;
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const parentDiv = document.getElementById('times-0');
+    const currentTime = new Date();
+
+    if (parentDiv) {
+        const timeLabels = parentDiv.getElementsByTagName('label');
+
+        Array.from(timeLabels).forEach(label => {
+            const timeSpan = label.getElementsByClassName('time-txt')[0];
+            if (!timeSpan) return;
+
+            const timeText = timeSpan.textContent || timeSpan.innerText;
+            const divTime = new Date(currentTime.toDateString() + ' ' + timeText);
+
+            const timeDifference = divTime - currentTime;
+            const twoHoursFifteenMinutes = 2.15 * 60 * 60 * 1000; // Convert hours to milliseconds
+
+            // Check if the time is in the past or within the next 2.15 hours
+            if (timeDifference < 0 || timeDifference <= twoHoursFifteenMinutes) {
+                label.parentNode.removeChild(label);
+            }
+        });
+    }
 });
 
