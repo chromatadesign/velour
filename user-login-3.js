@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.removeItem('lastName');
             localStorage.removeItem('email');
 
-            // Refresh the page
-            window.location.reload();
+            // Send the user to home page
+            window.location.href = 'https://www.velourmd.com';
         });
     }
 });
