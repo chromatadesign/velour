@@ -11,8 +11,15 @@ window.onload = function() {
 
     // Check and set userID and payStatus
     if (userID && payStatus) {
+        // If userID exists, show the "logged-in-user-base" div and hide the "logged-out-user-base" div
         localStorage.setItem('userID', userID);
         localStorage.setItem('payStatus', payStatus);
+        if (loggedInUserBase) loggedInUserBase.style.display = 'flex';
+        if (loggedOutUserBase) loggedOutUserBase.style.display = 'none';
+    } else {
+        // If no userID, do the opposite
+        if (loggedInUserBase) loggedInUserBase.style.display = 'none';
+        if (loggedOutUserBase) loggedOutUserBase.style.display = 'flex';
     }
 
     // Check and set firstName, lastName, and email
