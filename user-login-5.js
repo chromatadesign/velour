@@ -1,8 +1,7 @@
-// Code to initialize, handle user variables from URL, and logout functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize from URL parameters upon page load
+    // Attempt to retrieve userID from URL parameters or localStorage
     const params = new URLSearchParams(window.location.search);
-    const userID = params.get('pt');
+    let userID = params.get('pt') || localStorage.getItem('userID');
     const payStatus = params.get('card');
     const firstName = params.get('firstName');
     const lastName = params.get('lastName');
@@ -16,14 +15,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const logoutBtn = document.getElementById('log-user-out-btn');
     const logoutBtnMobile = document.getElementById('log-user-out-btn-mobile');
 
-    // Set visibility based on login status
+    // Update element visibility based on userID
     updateVisibility(userID, loggedInUserBase, loggedInUserBaseMobile, loggedOutUserBase, loggedOutUserBaseMobile);
 
-    // Set user data if available
-    if (userID && payStatus) {
+    // Update localStorage and variables if parameters are provided
+    if (params.get('pt')) {
+        userID = params.get('pt'); // Ensure the latest userID is used
         localStorage.setItem('userID', userID);
-        localStorage.setItem('payStatus', payStatus);
     }
+    if (payStatus) localStorage.setItem('payStatus', payStatus);
     if (firstName) localStorage.setItem('firstName', firstName);
     if (lastName) localStorage.setItem('lastName', lastName);
     if (email) localStorage.setItem('email', email);
@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Function to update visibility of elements based on user login status
 function updateVisibility(userID, loggedInUserBase, loggedInUserBaseMobile, loggedOutUserBase, loggedOutUserBaseMobile) {
     const displayLoggedIn = userID ? 'flex' : 'none';
     const displayLoggedOut = userID ? 'none' : 'flex';
