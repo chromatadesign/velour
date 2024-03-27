@@ -28,7 +28,7 @@ window.onload = function() {
 };
 
 
-//Code to erase user variables from local storage if user clicks log-out button
+// Code to erase user variables from local storage if user clicks log-out button
 document.addEventListener('DOMContentLoaded', function() {
     const logoutBtn = document.getElementById('log-user-out-btn');
 
@@ -46,5 +46,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Toggle visibility of user dropdown divs based on login status
+document.addEventListener('DOMContentLoaded', function() {
+    // Check for userID in localStorage
+    const userID = localStorage.getItem('userID');
+    const loggedInUserBase = document.getElementById('logged-in-user-base');
+    const loggedOutUserBase = document.getElementById('logged-out-user-base');
+
+    if (userID) {
+        // If userID exists, show the "logged-in-user-base" div and hide the "logged-out-user-base" div
+        if (loggedInUserBase) loggedInUserBase.style.display = 'flex';
+        if (loggedOutUserBase) loggedOutUserBase.style.display = 'none';
+    } else {
+        // If no userID, do the opposite
+        if (loggedInUserBase) loggedInUserBase.style.display = 'none';
+        if (loggedOutUserBase) loggedOutUserBase.style.display = 'flex';
+    }
+});
+
 
 
