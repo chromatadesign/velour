@@ -172,7 +172,6 @@ for (let day = 0; day <= 21; day++) {
 }
 
 
-
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.time-txt').forEach(function(div) {
         div.addEventListener('click', function() {
@@ -182,10 +181,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get the values from the radio input's attributes
             var officeValue = radioInput.getAttribute('Office');
             var roomValue = radioInput.getAttribute('Room');
-            var dateValue = radioInput.getAttribute('Date');
+            var dateValue = radioInput.getAttribute('Date'); // e.g., "4/20/2024"
 
             // Get the displayed text value of the clicked div
-            var timeValue = this.textContent;
+            var timeValue = this.textContent; // e.g., "1:00 pm"
 
             // Paste the values into the form fields
             document.getElementById('office').value = officeValue;
@@ -197,11 +196,44 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('app-time-txt').textContent = timeValue;
 
             // Format the date and paste into the app-date-txt div
-            var formattedDate = formatDate(dateValue);
+            var formattedDate = formatDate(dateValue); // Assuming this function returns the date in a desired format
             document.getElementById('app-date-txt').textContent = formattedDate;
+
+            // Combine date and time, and update the app-start-date-time div
+            var dateTimeString = combineDateTime(dateValue, timeValue);
+            document.getElementById('app-start-date-time').textContent = dateTimeString;
         });
     });
 });
+
+function formatDate(dateStr) {
+    // Assuming this function formats the date as needed; it's a placeholder here
+    return dateStr; // Placeholder implementation
+}
+
+function combineDateTime(dateValue, timeValue) {
+    // Convert the dateValue to YYYY-MM-DD
+    var [month, day, year] = dateValue.split('/');
+    var formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+
+    // Convert timeValue to 24-hour format HH:MM:SS
+    var timeParts = timeValue.match(/(\d+):(\d+) (\w+)/);
+    var hours = parseInt(timeParts[1], 10);
+    var minutes = timeParts[2];
+    var meridian = timeParts[3];
+
+    if (meridian.toLowerCase() === 'pm' && hours < 12) {
+        hours += 12;
+    } else if (meridian.toLowerCase() === 'am' && hours === 12) {
+        hours = 0;
+    }
+
+    var formattedTime = `${hours.toString().padStart(2, '0')}:${minutes}:00`;
+
+    // Combine date and time
+    return `${formattedDate}T${formattedTime}`;
+}
+
 
 function formatDate(dateString) {
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
