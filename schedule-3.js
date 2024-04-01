@@ -199,9 +199,10 @@ document.addEventListener('DOMContentLoaded', function() {
             var formattedDate = formatDate(dateValue); // Assuming this function returns the date in a desired format
             document.getElementById('app-date-txt').textContent = formattedDate;
 
-            // Combine date and time, and update the app-start-date-time div
-            var dateTimeString = combineDateTime(dateValue, timeValue);
-            document.getElementById('app-start-date-time').textContent = dateTimeString;
+            // Combine date and time, and update the app-start-date-time input field
+var dateTimeString = combineDateTime(dateValue, timeValue);
+document.getElementById('app-start-date-time').value = dateTimeString;
+
         });
     });
 });
