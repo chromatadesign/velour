@@ -58,6 +58,13 @@ updateDate('day-18', 18);
 updateDate('day-19', 19);
 updateDate('day-20', 20);
 updateDate('day-21', 21);
+updateDate('day-22', 22);
+updateDate('day-23', 23);
+updateDate('day-24', 24);
+updateDate('day-25', 25);
+updateDate('day-26', 26);
+updateDate('day-27', 27);
+updateDate('day-28', 28);
 
 // Sample input string
 var inputString = document.getElementById("schedule-text").textContent;
@@ -85,6 +92,13 @@ var Day18Availability = [];
 var Day19Availability = [];
 var Day20Availability = [];
 var Day21Availability = [];
+var Day22Availability = [];
+var Day23Availability = [];
+var Day24Availability = [];
+var Day25Availability = [];
+var Day26Availability = [];
+var Day27Availability = [];
+var Day28Availability = [];
 
 // Function to parse and extract availability
 function parseAvailability(input) {
@@ -166,7 +180,7 @@ function processDayAvailability(day, availability) {
     });
 }
 
-for (let day = 0; day <= 21; day++) {
+for (let day = 0; day <= 28; day++) {
     const availabilityArray = window[`Day${day}Availability`];
     processDayAvailability(day, availabilityArray);
 }
