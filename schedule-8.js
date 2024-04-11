@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const submitAppBtnDiv = document.getElementById('submit-app-btn');
             errorMessageDiv.style.display = 'none';
             confirmationMessageDiv.style.display = 'flex';
-            submitAppBtnDiv.style.display = 'flex';
+            submitAppBtnDiv.style.display = 'block';
 
             // Paste the time value into the app-time-txt div
             document.getElementById('app-time-txt').textContent = timeValue;
