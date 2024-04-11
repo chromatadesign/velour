@@ -264,23 +264,43 @@ function formatDate(dateString) {
 
 
 
-document.addEventListener('click', function(event) {
-    // Check if the clicked element or its parent has the 'time-txt' class
-    var target = event.target;
-    if (target.matches('.time-txt') || target.closest('.time-txt')) {
-        // Hide the 'error-message' div
-        var errorMessage = document.getElementById('error-message');
-        if (errorMessage) {
-            errorMessage.style.display = 'none';
-        }
+// Function to update the display styles based on the content of the #date div
+function updateDisplay() {
+  const dateDiv = document.getElementById('date');
+  const errorMessageDiv = document.getElementById('error-message');
+  const confirmationMessageDiv = document.getElementById('confirmation-message');
+  const submitAppBtnDiv = document.getElementById('submit-app-btn');
 
-        // Show the 'confirmation-message' div
-        var confirmationMessage = document.getElementById('confirmation-message');
-        if (confirmationMessage) {
-            confirmationMessage.style.display = 'flex';
-        }
+  if (dateDiv.textContent.trim() === '') {
+    // If the #date div is empty
+    errorMessageDiv.style.display = 'flex';
+    confirmationMessageDiv.style.display = 'none';
+    submitAppBtnDiv.style.display = 'none';
+  } else {
+    // If the #date div is not empty
+    errorMessageDiv.style.display = 'none';
+    confirmationMessageDiv.style.display = 'flex';
+    submitAppBtnDiv.style.display = 'flex';
+  }
+}
+
+// Create a MutationObserver to watch for changes in the #date div
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.type === 'childList' || mutation.type === 'characterData') {
+      updateDisplay();
     }
+  });
 });
+
+// Start observing the #date div for changes in its children or its text content
+const config = { childList: true, characterData: true, subtree: true };
+const targetNode = document.getElementById('date');
+observer.observe(targetNode, config);
+
+// Initial update in case the content is dynamically loaded
+updateDisplay();
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
