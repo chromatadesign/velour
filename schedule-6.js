@@ -264,42 +264,33 @@ function formatDate(dateString) {
 
 
 
-// Function to update the display styles based on the content of the #date div
+// Function to update the display styles based on the content of the #date input
 function updateDisplay() {
-  const dateDiv = document.getElementById('date');
+  const dateInput = document.getElementById('date');
   const errorMessageDiv = document.getElementById('error-message');
   const confirmationMessageDiv = document.getElementById('confirmation-message');
   const submitAppBtnDiv = document.getElementById('submit-app-btn');
 
-  if (dateDiv.textContent.trim() === '') {
-    // If the #date div is empty
+  if (dateInput.value.trim() === '') {
+    // If the #date input is empty
     errorMessageDiv.style.display = 'flex';
     confirmationMessageDiv.style.display = 'none';
     submitAppBtnDiv.style.display = 'none';
   } else {
-    // If the #date div is not empty
+    // If the #date input is not empty
     errorMessageDiv.style.display = 'none';
     confirmationMessageDiv.style.display = 'flex';
     submitAppBtnDiv.style.display = 'flex';
   }
 }
 
-// Create a MutationObserver to watch for changes in the #date div
-const observer = new MutationObserver((mutations) => {
-  mutations.forEach((mutation) => {
-    if (mutation.type === 'childList' || mutation.type === 'characterData') {
-      updateDisplay();
-    }
-  });
-});
+// Attach an event listener to the #date input to react to changes
+const dateInput = document.getElementById('date');
+dateInput.addEventListener('input', updateDisplay);
 
-// Start observing the #date div for changes in its children or its text content
-const config = { childList: true, characterData: true, subtree: true };
-const targetNode = document.getElementById('date');
-observer.observe(targetNode, config);
-
-// Initial update in case the content is dynamically loaded
+// Initial update in case the input field is pre-filled or dynamically updated
 updateDisplay();
+
 
 
 
