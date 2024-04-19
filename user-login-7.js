@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Attempt to retrieve userID and firstName from URL parameters or localStorage
     const params = new URLSearchParams(window.location.search);
     let userID = params.get('pt') || localStorage.getItem('userID');
-    let firstName = params.get('firstName') || localStorage.getItem('firstName');
-    const payStatus = params.get('card');
-    const lastName = params.get('lastName');
-    const email = params.get('email');
+    let firstName = params.get('ptF') || localStorage.getItem('firstName');
+    const payStatus = params.get('card') || localStorage.getItem('payStatus');
+    const lastName = params.get('ptL') || localStorage.getItem('lastName');
+    const email = params.get('ptE') || localStorage.getItem('email');
 
     // Elements
     const loggedInUserBase = document.getElementById('logged-in-user-base');
@@ -26,17 +26,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Update localStorage and variables if parameters are provided
-    if (params.get('pt')) {
+    if (params.has('pt')) {
         userID = params.get('pt'); // Ensure the latest userID is used
         localStorage.setItem('userID', userID);
-        if (params.get('firstName')) {
-            firstName = params.get('firstName'); // Update firstName with URL parameter
-            localStorage.setItem('firstName', firstName);
-        }
     }
-    if (payStatus) localStorage.setItem('payStatus', payStatus);
-    if (lastName) localStorage.setItem('lastName', lastName);
-    if (email) localStorage.setItem('email', email);
+    if (params.has('ptF')) {
+        firstName = params.get('ptF'); // Update firstName with URL parameter
+        localStorage.setItem('firstName', firstName);
+    }
+    if (payStatus) {
+        localStorage.setItem('payStatus', payStatus);
+    }
+    if (lastName) {
+        localStorage.setItem('lastName', lastName);
+    }
+    if (email) {
+        localStorage.setItem('email', email);
+    }
 
     // Logout functionality
     [logoutBtn, logoutBtnMobile].forEach(btn => {
@@ -63,6 +69,3 @@ function updateUserName(firstName, userNameDiv, userNameMobileDiv) {
     if (userNameDiv) userNameDiv.textContent = firstName;
     if (userNameMobileDiv) userNameMobileDiv.textContent = firstName;
 }
-
-
-
