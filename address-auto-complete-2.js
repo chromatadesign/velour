@@ -1,6 +1,6 @@
 function initAutocomplete() {
     var autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById('address'), {types: ['geocode']}
+        document.getElementById('address'), {types: ['geocode']}
     );
 
     autocomplete.addListener('place_changed', function() {
@@ -25,32 +25,35 @@ function initAutocomplete() {
             }
         }
 
-        // Function to set field value and trigger input event
-        function setFieldValueAndTriggerInput(fieldId, value) {
-            var field = document.getElementById(fieldId);
-            field.value = value;
-            field.dispatchEvent(new Event('input', { bubbles: true }));
-        }
+        // Immediately update values
+        document.getElementById('city').value = city;
+        document.getElementById('state').value = state;
+        document.getElementById('zip').value = zip;
 
-        // Update field values and trigger input event
-        setFieldValueAndTriggerInput('city', city);
-        setFieldValueAndTriggerInput('state', state);
-        setFieldValueAndTriggerInput('zip', zip);
-
+        // Adjust the address field by removing city and state
         var addressField = document.getElementById('address');
         var addressValue = addressField.value;
 
-        // Remove specific parts (city and state) and ", USA"
+        // Regular expression to remove parts
         partsToRemove.forEach(function(part) {
             var regex = new RegExp(part + '\\s*,\\s*|\\s+' + part, 'gi');
             addressValue = addressValue.replace(regex, '');
         });
         addressValue = addressValue.replace(/, USA$/, '');
-
-        // Clean up any remaining double commas and trim whitespace
         addressValue = addressValue.replace(/,,+/g, ',').replace(/,\s*$/, '').trim();
+        addressField.value = addressValue;
 
-        // Set cleaned address and trigger input event
-        setFieldValueAndTriggerInput('address', addressValue);
+        // Trigger the input events after the updates
+        triggerInputEvent(document.getElementById('city'));
+        triggerInputEvent(document.getElementById('state'));
+        triggerInputEvent(document.getElementById('zip'));
+        triggerInputEvent(addressField);
     });
 }
+
+// Helper function to trigger 'input' event
+function triggerInputEvent(field) {
+    var event = new Event('input', { bubbles: true });
+    field.dispatchEvent(event);
+}
+
