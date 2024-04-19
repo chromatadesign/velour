@@ -296,20 +296,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-// Get the elements by their IDs
-var dobInput = document.getElementById('dob-input');
-var dob = document.getElementById('dob');
-
-// Add an event listener to the 'dob-input' element
-dobInput.addEventListener('change', function() {
-    // Set the value of 'dob' to be the same as the value of 'dob-input'
-    dob.value = dobInput.value;
-
-    // Trigger an 'input' event manually on the 'dob' element
-    if (dob) {
-        dob.dispatchEvent(new Event('input', { bubbles: true }));
-    }
-});
 
 
 document.addEventListener('DOMContentLoaded', function() {
