@@ -304,7 +304,13 @@ var dob = document.getElementById('dob');
 dobInput.addEventListener('change', function() {
     // Set the value of 'dob' to be the same as the value of 'dob-input'
     dob.value = dobInput.value;
+
+    // Trigger an 'input' event manually on the 'dob' element
+    if (dob) {
+        dob.dispatchEvent(new Event('input', { bubbles: true }));
+    }
 });
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const parentDiv = document.getElementById('times-0');
