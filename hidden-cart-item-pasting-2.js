@@ -3,6 +3,22 @@ setTimeout(() => {
     const hiddenCartItems = document.querySelectorAll('.hidden-cart-item');
     let serviceTitles = []; // Array to hold the titles
 
+    // Object to store the keyword checks
+    let keywordCheck = {
+        "Botox": false,
+        "Fillers": false,
+        "PDO Threads": false,
+        "PDO Thread Lift": false,
+        "Smooth Threads": false,
+        "PRP Injections": false,
+        "Kybella": false,
+        "Biostimulators": false,
+        "Chemical Peels": false,
+        "Microneedling": false,
+        "Filler Dissolving": false,
+        "Skinvive": false
+    };
+
     hiddenCartItems.forEach(hiddenCartItem => {
         // Create a new div with class 'cart-item'
         const cartItem = document.createElement('div');
@@ -11,10 +27,8 @@ setTimeout(() => {
         // Create and append the 'cart-image' div
         const cartImage = document.createElement('div');
         cartImage.className = 'cart-image';
-        // Find the 'img' element within 'hidden-cart-image'
         const hiddenCartImage = hiddenCartItem.querySelector('.hidden-cart-image');
         if (hiddenCartImage) {
-            // Clone the 'img' element and append it to 'cart-image'
             const clonedImage = hiddenCartImage.cloneNode(true);
             cartImage.appendChild(clonedImage);
         }
@@ -27,31 +41,42 @@ setTimeout(() => {
         // Create and append the 'cart-item-title' div
         const cartItemTitle = document.createElement('div');
         cartItemTitle.className = 'cart-item-title';
-        // Find the 'selected-service-title' and copy its text content
         const selectedServiceTitle = hiddenCartItem.querySelector('.selected-service-title');
         if (selectedServiceTitle) {
             cartItemTitle.textContent = selectedServiceTitle.textContent;
-            // Add the title to the array
             serviceTitles.push(selectedServiceTitle.textContent.trim());
+
+            // Check for each keyword
+            Object.keys(keywordCheck).forEach(key => {
+                if (selectedServiceTitle.textContent.includes(key)) {
+                    keywordCheck[key] = true;
+                }
+            });
         }
         cartItemInfo.appendChild(cartItemTitle);
-
-        // Append 'cart-item-info' to 'cart-item'
         cartItem.appendChild(cartItemInfo);
-
-        // Append 'cart-item' to the 'selected-services-group' div
         const selectedServicesGroup = document.getElementById('selected-services-group');
         if (selectedServicesGroup) {
             selectedServicesGroup.appendChild(cartItem);
         }
     });
 
-    // After collecting all service titles, join them with commas and set the value of the 'selected-services' input field
+    // Update the 'selected-services' input field with the joined service titles
     if (serviceTitles.length > 0) {
         const selectedServicesInput = document.getElementById('selected-services');
         if (selectedServicesInput) {
             selectedServicesInput.value = serviceTitles.join(', ');
         }
     }
+
+    // Set the value for each keyword input field
+    Object.keys(keywordCheck).forEach(key => {
+        const inputId = key.toLowerCase().replace(/ /g, '-');
+        const inputField = document.getElementById(inputId);
+        if (inputField) {
+            inputField.value = keywordCheck[key] ? "true" : "false";
+        }
+    });
 }, 1000); // Delay execution by 1 second
+
 
