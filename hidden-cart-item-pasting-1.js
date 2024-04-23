@@ -1,6 +1,7 @@
 setTimeout(() => {
     // Find all elements with the class 'hidden-cart-item'
     const hiddenCartItems = document.querySelectorAll('.hidden-cart-item');
+    let serviceTitles = []; // Array to hold the titles
 
     hiddenCartItems.forEach(hiddenCartItem => {
         // Create a new div with class 'cart-item'
@@ -30,6 +31,8 @@ setTimeout(() => {
         const selectedServiceTitle = hiddenCartItem.querySelector('.selected-service-title');
         if (selectedServiceTitle) {
             cartItemTitle.textContent = selectedServiceTitle.textContent;
+            // Add the title to the array
+            serviceTitles.push(selectedServiceTitle.textContent.trim());
         }
         cartItemInfo.appendChild(cartItemTitle);
 
@@ -42,4 +45,13 @@ setTimeout(() => {
             selectedServicesGroup.appendChild(cartItem);
         }
     });
+
+    // After collecting all service titles, join them with commas and set the value of the 'selected-services' input field
+    if (serviceTitles.length > 0) {
+        const selectedServicesInput = document.getElementById('selected-services');
+        if (selectedServicesInput) {
+            selectedServicesInput.value = serviceTitles.join(', ');
+        }
+    }
 }, 1000); // Delay execution by 1 second
+
