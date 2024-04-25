@@ -273,6 +273,18 @@ function formatDate(dateString) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Function to update the content of the input field and app-location-txt div
+    function updateContent(locationValue, appLocationText) {
+        // Update the input field value
+        document.getElementById('location').value = locationValue;
+
+        // Update the text content of the app-location-txt div
+        document.getElementById('app-location-txt').textContent = appLocationText;
+
+        // Call function to update additional fields based on location
+        updateFieldsForLocation(locationValue);
+    }
+
     // Function to update fields and displays based on location selection
     function updateFieldsForLocation(locationValue) {
         const startDateField = document.getElementById('app-start-date-time');
@@ -306,14 +318,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener for the concierge div
     document.getElementById('concierge').addEventListener('click', function() {
-        updateFieldsForLocation('Concierge');
+        updateContent('Concierge', 'a concierge');
     });
 
     // Event listener for the in-suite div
     document.getElementById('in-suite').addEventListener('click', function() {
-        updateFieldsForLocation('In-Suite');
+        updateContent('In-Suite', 'an in-suite');
     });
 });
+
 
 
 
