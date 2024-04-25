@@ -272,26 +272,49 @@ function formatDate(dateString) {
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Function to update the content of the input field and app-location-txt div
-    function updateContent(locationValue, appLocationText) {
-        // Update the input field value
-        document.getElementById('location').value = locationValue;
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to update fields and displays based on location selection
+    function updateFieldsForLocation(locationValue) {
+        const startDateField = document.getElementById('app-start-date-time');
+        const dateField = document.getElementById('date');
+        const timeField = document.getElementById('time');
+        const officeField = document.getElementById('office');
+        const roomField = document.getElementById('room');
+        const confirmationMessage = document.getElementById('confirmation-message');
+        const errorMessage = document.getElementById('error-message');
 
-        // Update the text content of the app-location-txt div
-        document.getElementById('app-location-txt').textContent = appLocationText;
+        if (locationValue === 'Concierge') {
+            // Set values for Concierge
+            startDateField.value = '2024-05-15T01:00:00';
+            dateField.value = '5/15/2024';
+            timeField.value = '1:00 am';
+            officeField.value = '1';
+            roomField.value = '1';
+            confirmationMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+        } else if (locationValue === 'In-Suite') {
+            // Clear values for In-Suite
+            startDateField.value = '';
+            dateField.value = '';
+            timeField.value = '';
+            officeField.value = '';
+            roomField.value = '';
+            confirmationMessage.style.display = 'none';
+            errorMessage.style.display = 'flex';
+        }
     }
 
     // Event listener for the concierge div
-    document.getElementById('concierge').addEventListener('click', function () {
-        updateContent('Concierge', 'a concierge');
+    document.getElementById('concierge').addEventListener('click', function() {
+        updateFieldsForLocation('Concierge');
     });
 
     // Event listener for the in-suite div
-    document.getElementById('in-suite').addEventListener('click', function () {
-        updateContent('In-Suite', 'an in-suite');
+    document.getElementById('in-suite').addEventListener('click', function() {
+        updateFieldsForLocation('In-Suite');
     });
 });
+
 
 
 
