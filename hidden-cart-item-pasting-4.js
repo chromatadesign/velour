@@ -16,6 +16,7 @@ setTimeout(() => {
         "Chemical Peels": false,
         "Microneedling": false,
         "Filler Dissolving": false,
+        "Consultation": false,
         "Skinvive": false
     };
 
