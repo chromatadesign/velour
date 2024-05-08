@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const ptField = document.getElementById('pt');
+    const sexField = document.getElementById('sex');
     const aptField = document.getElementById('apt');
     const loggedOutForm = document.getElementById('logged-out-form');
     const loggedInForm = document.getElementById('logged-in-form');
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
         emailBox.textContent = email;
 
         setFieldValue(phoneField, "214-556-7890");
+        setFieldValue(sex, "Other");
         setFieldValue(dobField, "1900-01-01");
         setFieldValue(addressField, "123 Street");
         setFieldValue(cityField, "City");
