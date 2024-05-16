@@ -25,7 +25,6 @@ function formatDate(date) {
     return `${dayOfWeek}, ${month} ${dayOfMonth}`;
 }
 
-
 function updateDate(divId, daysToAdd) {
     const today = new Date();
     const futureDate = new Date(today);
@@ -40,6 +39,7 @@ function updateDate(divId, daysToAdd) {
 for (let i = 2; i <= 90; i++) {
     updateDate(`day-${i}`, i);
 }
+
 
 // Sample input strings
 var inputString0to30 = document.getElementById("schedule-text-0-30").textContent;
@@ -167,13 +167,12 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('app-time-txt').textContent = timeValue;
 
             // Format the date and paste into the app-date-txt div
-            var formattedDate = formatDate(dateValue); // Assuming this function returns the date in a desired format
+            var formattedDate = formatDate(new Date(dateValue)); // Correctly format the date
             document.getElementById('app-date-txt').textContent = formattedDate;
 
             // Combine date and time, and update the app-start-date-time input field
             var dateTimeString = combineDateTime(dateValue, timeValue);
             document.getElementById('app-start-date-time').value = dateTimeString;
-
         });
     });
 });
