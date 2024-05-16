@@ -22,8 +22,9 @@ function formatDate(date) {
     const month = months[date.getMonth()];
     const dayOfMonth = date.getDate();
 
-    return `${dayOfWeek}, ${month}. ${dayOfMonth}`;
+    return `${dayOfWeek}, ${month} ${dayOfMonth}`;
 }
+
 
 function updateDate(divId, daysToAdd) {
     const today = new Date();
