@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
   var timeDivs = document.querySelectorAll('.time-txt');
 
@@ -14,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
-
 
 function formatDate(date) {
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -37,68 +35,18 @@ function updateDate(divId, daysToAdd) {
     document.getElementById(divId).innerText = formattedDate;
 }
 
-
-updateDate('day-2', 2);
-updateDate('day-3', 3);
-updateDate('day-4', 4);
-updateDate('day-5', 5);
-updateDate('day-6', 6);
-updateDate('day-7', 7);
-updateDate('day-8', 8);
-updateDate('day-9', 9);
-updateDate('day-10', 10);
-updateDate('day-11', 11);
-updateDate('day-12', 12);
-updateDate('day-13', 13);
-updateDate('day-14', 14);
-updateDate('day-15', 15);
-updateDate('day-16', 16);
-updateDate('day-17', 17);
-updateDate('day-18', 18);
-updateDate('day-19', 19);
-updateDate('day-20', 20);
-updateDate('day-21', 21);
-updateDate('day-22', 22);
-updateDate('day-23', 23);
-updateDate('day-24', 24);
-updateDate('day-25', 25);
-updateDate('day-26', 26);
-updateDate('day-27', 27);
-updateDate('day-28', 28);
+// Update to 90 days
+for (let i = 2; i <= 90; i++) {
+    updateDate(`day-${i}`, i);
+}
 
 // Sample input string
 var inputString = document.getElementById("schedule-text").textContent;
 
 // Initialize availability arrays for each day
-var Day0Availability = [];
-var Day1Availability = [];
-var Day2Availability = [];
-var Day3Availability = [];
-var Day4Availability = [];
-var Day5Availability = [];
-var Day6Availability = [];
-var Day7Availability = [];
-var Day8Availability = [];
-var Day9Availability = [];
-var Day10Availability = [];
-var Day11Availability = [];
-var Day12Availability = [];
-var Day13Availability = [];
-var Day14Availability = [];
-var Day15Availability = [];
-var Day16Availability = [];
-var Day17Availability = [];
-var Day18Availability = [];
-var Day19Availability = [];
-var Day20Availability = [];
-var Day21Availability = [];
-var Day22Availability = [];
-var Day23Availability = [];
-var Day24Availability = [];
-var Day25Availability = [];
-var Day26Availability = [];
-var Day27Availability = [];
-var Day28Availability = [];
+for (let i = 0; i <= 90; i++) {
+    window[`Day${i}Availability`] = [];
+}
 
 // Function to parse and extract availability
 function parseAvailability(input) {
@@ -118,14 +66,12 @@ function parseAvailability(input) {
         });
 
         // Assign the filtered list to the corresponding DayAvailability variable
-        eval("Day" + day + "Availability = filteredSList;");
+        window[`Day${day}Availability`] = filteredSList;
     }
 }
 
 // Call the function with the input string
 parseAvailability(inputString);
-
-
 
 function convertMilitaryTimeToStandard(time) {
     let hours = parseInt(time.substring(0, 2), 10);
@@ -180,11 +126,11 @@ function processDayAvailability(day, availability) {
     });
 }
 
-for (let day = 0; day <= 28; day++) {
+// Update to 90 days
+for (let day = 0; day <= 90; day++) {
     const availabilityArray = window[`Day${day}Availability`];
     processDayAvailability(day, availabilityArray);
 }
-
 
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.time-txt').forEach(function(div) {
@@ -220,8 +166,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('app-date-txt').textContent = formattedDate;
 
             // Combine date and time, and update the app-start-date-time input field
-var dateTimeString = combineDateTime(dateValue, timeValue);
-document.getElementById('app-start-date-time').value = dateTimeString;
+            var dateTimeString = combineDateTime(dateValue, timeValue);
+            document.getElementById('app-start-date-time').value = dateTimeString;
 
         });
     });
@@ -254,23 +200,6 @@ function combineDateTime(dateValue, timeValue) {
     // Combine date and time
     return `${formattedDate}T${formattedTime}`;
 }
-
-
-function formatDate(dateString) {
-    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    var months = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
-
-    var date = new Date(dateString);
-    var dayOfWeek = days[date.getDay()];
-    var month = months[date.getMonth()];
-    var dayOfMonth = date.getDate();
-
-    return `${dayOfWeek}, ${month} ${dayOfMonth}`;
-}
-
-
-
-
 
 document.addEventListener('DOMContentLoaded', function() {
     // Function to update the content of the input field and app-location-txt div
@@ -327,13 +256,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
     const parentDiv = document.getElementById('times-0');
     const currentTime = new Date();
@@ -358,4 +280,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 
