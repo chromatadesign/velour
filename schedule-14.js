@@ -40,8 +40,10 @@ for (let i = 2; i <= 90; i++) {
     updateDate(`day-${i}`, i);
 }
 
-// Sample input string
-var inputString = document.getElementById("schedule-text").textContent;
+// Sample input strings
+var inputString0to30 = document.getElementById("schedule-text-0-30").textContent;
+var inputString31to60 = document.getElementById("schedule-text-31-60").textContent;
+var inputString61to90 = document.getElementById("schedule-text-61-90").textContent;
 
 // Initialize availability arrays for each day
 for (let i = 0; i <= 90; i++) {
@@ -49,12 +51,12 @@ for (let i = 0; i <= 90; i++) {
 }
 
 // Function to parse and extract availability
-function parseAvailability(input) {
+function parseAvailability(input, startDay) {
     var match;
     var regex = /\[S(\d+): ([^[\]]*)\]\[A\1: ([^[\]]*)\]/g;
 
     while ((match = regex.exec(input)) !== null) {
-        var day = parseInt(match[1]);
+        var day = parseInt(match[1]) + startDay;
         var sList = match[2].split(',').map(num => num.trim());
         var aList = match[3].split(',').map(num => num.trim());
 
@@ -70,8 +72,10 @@ function parseAvailability(input) {
     }
 }
 
-// Call the function with the input string
-parseAvailability(inputString);
+// Call the function with the input strings
+parseAvailability(inputString0to30, 0);
+parseAvailability(inputString31to60, 31);
+parseAvailability(inputString61to90, 61);
 
 function convertMilitaryTimeToStandard(time) {
     let hours = parseInt(time.substring(0, 2), 10);
@@ -280,5 +284,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 
 
