@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cardField = document.getElementById('card');
     const ccAuthTokenField = document.getElementById('cc-auth-token');
     const submitWrapper = document.getElementById('submit-wrap');
+    const ccAuthCheckbox = document.getElementById('cc-authorization-checkbox');
     const dobInput = document.getElementById('dob-input'); // This is the external input field if exists
 
     // Retrieve values from local storage
@@ -72,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (payStatus === 'yes') {
         creditAuthContainer.style.display = 'none';
+        ccAuthCheckbox.checked = true;
         submitWrapper.style.display = 'flex';
         setFieldValue(ccAuthTokenField, "yes");
     }
