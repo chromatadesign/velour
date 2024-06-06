@@ -228,6 +228,8 @@ var Day88Availability = [];
 var Day89Availability = [];
 var Day90Availability = [];
 
+
+
 // Function to parse and extract availability
 function parseAvailability(input) {
     var match;
@@ -252,6 +254,8 @@ function parseAvailability(input) {
 
 // Call the function with the input string
 parseAvailability(inputString);
+
+
 
 function convertMilitaryTimeToStandard(time) {
     let hours = parseInt(time.substring(0, 2), 10);
@@ -306,23 +310,11 @@ function processDayAvailability(day, availability) {
     });
 }
 
-// Process and display time slots for days 0-60
-for (let day = 0; day <= 60; day++) {
-    processDayAvailability(day, window[`Day${day}Availability`]);
+for (let day = 0; day <= 90; day++) {
+    const availabilityArray = window[`Day${day}Availability`];
+    processDayAvailability(day, availabilityArray);
 }
 
-// Count the available time options for days 0-60
-let availableTimeOptionsCount = 0;
-for (let day = 0; day <= 60; day++) {
-    availableTimeOptionsCount += window[`Day${day}Availability`].length;
-}
-
-// Conditionally process and display time slots for days 61-90
-if (availableTimeOptionsCount < 20) {
-    for (let day = 61; day <= 90; day++) {
-        processDayAvailability(day, window[`Day${day}Availability`]);
-    }
-}
 
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.time-txt').forEach(function(div) {
@@ -333,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get the values from the radio input's attributes
             var officeValue = radioInput.getAttribute('Office');
             var roomValue = radioInput.getAttribute('Room');
-            var dateValue = radioInput.getAttribute('date'); // e.g., "4/20/2024"
+            var dateValue = radioInput.getAttribute('Date'); // e.g., "4/20/2024"
 
             // Get the displayed text value of the clicked div
             var timeValue = this.textContent; // e.g., "1:00 pm"
@@ -358,18 +350,16 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('app-date-txt').textContent = formattedDate;
 
             // Combine date and time, and update the app-start-date-time input field
-            var dateTimeString = combineDateTime(dateValue, timeValue);
-            document.getElementById('app-start-date-time').value = dateTimeString;
+var dateTimeString = combineDateTime(dateValue, timeValue);
+document.getElementById('app-start-date-time').value = dateTimeString;
+
         });
     });
 });
 
 function formatDate(dateStr) {
-    const [month, day, year] = dateStr.split('/');
-    const date = new Date(`${year}-${month}-${day}`);
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const months = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
-    return `${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}`;
+    // Assuming this function formats the date as needed; it's a placeholder here
+    return dateStr; // Placeholder implementation
 }
 
 function combineDateTime(dateValue, timeValue) {
@@ -395,6 +385,85 @@ function combineDateTime(dateValue, timeValue) {
     return `${formattedDate}T${formattedTime}`;
 }
 
+
+function formatDate(dateString) {
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var months = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
+
+    var date = new Date(dateString);
+    var dayOfWeek = days[date.getDay()];
+    var month = months[date.getMonth()];
+    var dayOfMonth = date.getDate();
+
+    return `${dayOfWeek}, ${month} ${dayOfMonth}`;
+}
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to update the content of the input field and app-location-txt div
+    function updateContent(locationValue, appLocationText) {
+        // Update the input field value
+        document.getElementById('location').value = locationValue;
+
+        // Update the text content of the app-location-txt div
+        document.getElementById('app-location-txt').textContent = appLocationText;
+
+        // Call function to update additional fields based on location
+        updateFieldsForLocation(locationValue);
+    }
+
+    // Function to update fields and displays based on location selection
+    function updateFieldsForLocation(locationValue) {
+        const startDateField = document.getElementById('app-start-date-time');
+        const dateField = document.getElementById('date');
+        const timeField = document.getElementById('time');
+        const officeField = document.getElementById('office');
+        const roomField = document.getElementById('room');
+        const confirmationMessage = document.getElementById('confirmation-message');
+        const errorMessage = document.getElementById('error-message');
+
+        if (locationValue === 'Concierge') {
+            // Set values for Concierge
+            startDateField.value = '2024-05-15T01:00:00';
+            dateField.value = '5/15/2024';
+            timeField.value = '1:00 am';
+            officeField.value = '1';
+            roomField.value = '1';
+            confirmationMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+        } else if (locationValue === 'In-Suite') {
+            // Clear values for In-Suite
+            startDateField.value = '';
+            dateField.value = '';
+            timeField.value = '';
+            officeField.value = '';
+            roomField.value = '';
+            confirmationMessage.style.display = 'none';
+            errorMessage.style.display = 'flex';
+        }
+    }
+
+    // Event listener for the concierge div
+    document.getElementById('concierge').addEventListener('click', function() {
+        updateContent('Concierge', 'a concierge');
+    });
+
+    // Event listener for the in-suite div
+    document.getElementById('in-suite').addEventListener('click', function() {
+        updateContent('In-Suite', 'an in-suite');
+    });
+});
+
+
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const parentDiv = document.getElementById('times-0');
     const currentTime = new Date();
@@ -419,5 +488,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
-
